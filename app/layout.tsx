@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Quantico } from "next/font/google";
 import type React from "react";
 import "./globals.css";
+import Footer from "@/components/Footer";
 
 // Google fonts
 const quantico = Quantico({
@@ -29,9 +30,7 @@ export default function RootLayout({
                     <main>
                         {children}
                     </main>
-                    <footer>
-                        © {new Date().getFullYear()} Pinn Xu. All rights reserved.
-                    </footer>
+                    <Footer/>
                 </body>
             </html>
         </>
