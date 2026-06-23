@@ -1,3 +1,26 @@
+## URL Shortener
+
+This web tool helps you create compact long URLs into shareable short links with a customized slug.
+
+[Link to URL Shortener](https://url-to.vercel.app/)
+
+To use it, enter your long URL:
+
+```
+https://example.com/your/very/long/url/
+```
+
+Then, enter a slug for your shortened URL:
+
+<code>
+https://url-to.vercel.app/<span style="color:red">your-slug</span>
+</code>
+
+Click the compact button, and the tool will give you a shortened link redirect to your URL.
+
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
