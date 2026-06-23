@@ -29,6 +29,9 @@ export default function RootLayout({
                     <main>
                         {children}
                     </main>
+                    <footer>
+                        © {new Date().getFullYear()} Pinn Xu. All rights reserved.
+                    </footer>
                 </body>
             </html>
         </>
