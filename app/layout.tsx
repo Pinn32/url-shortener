@@ -13,8 +13,8 @@ const quantico = Quantico({
 
 // Metadata
 export const metadata: Metadata = {
-    title: "mp-5 | CS601",
-    description: "Next.js App: URL Shortener",
+    title: "URL Shortener | Pinn32",
+    description: "Next.js App: URL Shortener, developed by Pinn Xu.",
 };
 
 // RootLayout
