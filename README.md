@@ -1,8 +1,8 @@
 ## URL Shortener
 
-This web tool helps you create compact long URLs into shareable short links with a customized slug.
+This web tool helps you compact long URLs into shareable short links with a customized slug.
 
-[Link to URL Shortener](https://url-to.vercel.app/)
+**[Click here to try](https://url-to.vercel.app/)**
 
 To use it, enter your long URL:
 
@@ -10,13 +10,13 @@ To use it, enter your long URL:
 https://example.com/your/very/long/url/
 ```
 
-Then, enter a slug for your shortened URL:
+Then, choose a slug for your shortened URL:
 
-<code>
-https://url-to.vercel.app/<span style="color:red">your-slug</span>
-</code>
+```
+https://url-to.vercel.app/<your-slug>
+```
 
-Click the compact button, and the tool will give you a shortened link redirect to your URL.
+Click the compact button, and the tool will give you a shortened link that redirects to your URL.
 
 
 ---
