@@ -9,7 +9,7 @@ const StyledFooter = styled.footer`
 export default function Footer() {
     return (
         <StyledFooter>
-            © {new Date().getFullYear()} Pinn Xu. All rights reserved.
+            © {new Date().getFullYear()} <a href="https://github.com/Pinn32" target="_blank" rel="noopener noreferrer">Pinn Xu</a>. All rights reserved.
         </StyledFooter>
     )
 }

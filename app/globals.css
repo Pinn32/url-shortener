@@ -37,3 +37,15 @@ main {
     flex-direction: column;
     gap: 5vh;
 }
+
+a {
+    transition: all 0.1s ease-in-out;
+    
+    &:link, &:visited {
+        color: var(--light-green);
+    }
+    &:hover, &:active {
+        color: var(--color);
+        text-decoration: underline;
+    }
+}
