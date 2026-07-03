@@ -7,9 +7,14 @@ const StyledFooter = styled.footer`
 `;
 
 export default function Footer() {
+    const startYear = 2026;
+    const currentYear = new Date().getFullYear();
+
     return (
         <StyledFooter>
-            © {new Date().getFullYear()} <a href="https://github.com/Pinn32" target="_blank" rel="noopener noreferrer">Pinn Xu</a>. All rights reserved.
+            © {
+                currentYear === startYear ? `${startYear}` : `${startYear} – ${currentYear}`
+            } <a href="https://github.com/Pinn32" target="_blank" rel="noopener noreferrer">Pinn Xu</a>. All rights reserved.
         </StyledFooter>
     )
 }
