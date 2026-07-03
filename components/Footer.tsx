@@ -4,6 +4,10 @@ const StyledFooter = styled.footer`
     color: #90bc8f;
     font-size: 0.75rem;
     margin: auto 0;
+
+    @media (max-width: 768px) {
+        margin: 2rem 0;
+    }
 `;
 
 export default function Footer() {
