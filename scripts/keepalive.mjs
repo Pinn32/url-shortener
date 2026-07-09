@@ -14,9 +14,20 @@ const client = new MongoClient(MONGO_URI);
 
 try {
     await client.connect();
-    // A trivial admin command counts as activity against the cluster.
-    const result = await client.db(DB_NAME).command({ ping: 1 });
-    console.log(`Ping OK at ${new Date().toISOString()}:`, result);
+    // An admin `ping` does not count as cluster activity for Atlas M0
+    // inactivity tracking — only real reads/writes on a collection do.
+    // A single upsert against a dedicated collection is the minimal
+    // operation that reliably counts.
+    const now = new Date();
+    const result = await client
+        .db(DB_NAME)
+        .collection("keepalive")
+        .updateOne(
+            { _id: "keepalive" },
+            { $set: { lastPing: now } },
+            { upsert: true },
+        );
+    console.log(`Keepalive write OK at ${now.toISOString()}:`, result.acknowledged);
 } catch (err) {
     console.error("Keepalive ping failed:", err);
     process.exitCode = 1;
