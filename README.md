@@ -12,6 +12,7 @@ A Next.js URL shortener for creating shareable links with custom slugs. Guests c
 - Save newly shortened URLs to the logged-in user's account.
 - Set a displayed username, initially derived from the user's Gmail address.
 - View all URLs created while logged in.
+- Download all account-specific saved URLs as JSON or copy the JSON to the clipboard.
 - Edit a saved URL's slug.
 - Add an optional description of up to 10 words.
 - View creation and last-edited dates while editing a URL.

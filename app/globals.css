@@ -153,6 +153,28 @@ button {
 
 .profile-actions { flex-shrink: 0; }
 
+.manager-heading > div:first-child {
+    min-width: 0;
+}
+
+.export-actions {
+    display: flex;
+    flex-shrink: 0;
+    gap: 0.4rem;
+}
+
+.export-actions button {
+    min-height: 2rem;
+    padding: 0 0.8rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.export-actions button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
 .username-field label, .edit-grid label {
     display: flex;
     flex-direction: column;
@@ -309,6 +331,7 @@ a {
     }
     .login-prompt, .manager { width: 90vw; }
     .profile-row { align-items: stretch; flex-direction: column; }
+    .manager-heading { align-items: flex-end; }
     .username-field { min-width: 0; }
     .username-field > div { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; }
     .username-field input, .username-field button {
@@ -330,8 +353,10 @@ a {
 @media (max-width: 480px) {
     .account-bar { gap: 0.5rem; }
     .account-bar > span { max-width: calc(100% - 5rem); }
-    .manager-heading { align-items: flex-start; }
+    .manager-heading { align-items: stretch; flex-direction: column; }
     .manager-heading h2 { font-size: 1.1rem; }
+    .export-actions { display: grid; grid-template-columns: 1fr 1fr; }
+    .export-actions button { width: 100%; }
     .username-field input { grid-column: 1 / -1; }
     .item-actions button { flex: 1; }
 }

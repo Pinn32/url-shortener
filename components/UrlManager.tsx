@@ -60,6 +60,38 @@ export default function UrlManager({ initialName, email, urls }: {
         if (response.ok) router.refresh();
     }
 
+    function serializedUrls() {
+        const origin = window.location.origin;
+        return JSON.stringify(urls.map((url) => ({
+            slug: url.slug,
+            shortUrl: `${origin}/${url.slug}`,
+            destinationUrl: url.longUrl,
+            description: url.description || null,
+            createdAt: url.createTime,
+            updatedAt: url.updatedTime,
+        })), null, 2);
+    }
+
+    function downloadUrls() {
+        const blob = new Blob([serializedUrls()], { type: "application/json" });
+        const objectUrl = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = objectUrl;
+        link.download = "saved-shortened-urls.json";
+        link.click();
+        URL.revokeObjectURL(objectUrl);
+        setMessage("JSON file downloaded.");
+    }
+
+    async function copyUrls() {
+        try {
+            await navigator.clipboard.writeText(serializedUrls());
+            setMessage("JSON copied to clipboard.");
+        } catch {
+            setMessage("Unable to copy JSON. Check your browser permissions.");
+        }
+    }
+
     return (
         <section className="manager" aria-labelledby="saved-urls-title">
             <div className="profile-row">
@@ -95,8 +127,14 @@ export default function UrlManager({ initialName, email, urls }: {
                 )}
             </div>
             <div className="manager-heading">
-                <h2 id="saved-urls-title">Your shortened URLs</h2>
-                <span>{urls.length} saved</span>
+                <div>
+                    <h2 id="saved-urls-title">Your shortened URLs</h2>
+                    <span>{urls.length} saved</span>
+                </div>
+                <div className="export-actions" aria-label="Export saved URLs">
+                    <button disabled={urls.length === 0} onClick={downloadUrls}>Download JSON</button>
+                    <button disabled={urls.length === 0} onClick={copyUrls}>Copy JSON</button>
+                </div>
             </div>
             {message && <p className="status-message" role="status">{message}</p>}
             {urls.length === 0 ? (
