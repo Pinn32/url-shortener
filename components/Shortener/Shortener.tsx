@@ -25,7 +25,7 @@ const API_ERROR_MESSAGES: Record<string, string> = {
 };
 
 function humanizeError(raw: string): string {
-    return API_ERROR_MESSAGES[raw] ?? "An unexpected error occurred. Please try again.";
+    return API_ERROR_MESSAGES[raw] ?? raw ?? "An unexpected error occurred. Please try again.";
 }
 
 export default function Shortener({ onResult }: ShortenerProps) {

@@ -1,23 +1,32 @@
-"use client";
+import { auth } from "@/auth";
+import HomeClient from "@/components/HomeClient";
+import getCollection, { URL_SLUG } from "@/lib/db/db";
 
-import { useState } from "react";
+export default async function Home() {
+    const session = await auth();
+    const urls = session?.user?.id
+        ? await (await getCollection(URL_SLUG))
+            .find({ userId: session.user.id })
+            .sort({ createTime: -1 })
+            .toArray()
+        : [];
 
-import Title from "@/components/Title";
-import Shortener from "@/components/Shortener";
-import Output from "@/components/Output";
-
-type Result =
-    | { type: "success"; url: string }
-    | { type: "error"; message: string };
-
-export default function Home() {
-    const [result, setResult] = useState<Result | null>(null);
-
-    return(
+    return (
         <>
-            <Title />
-            <Shortener onResult={setResult} />
-            {result && <Output result={result} />}
+            <HomeClient
+                user={session?.user ? {
+                    name: session.user.name ?? "",
+                    email: session.user.email ?? "",
+                } : null}
+                urls={urls.map((url) => ({
+                    id: url._id.toHexString(),
+                    longUrl: url.longUrl,
+                    slug: url.slug,
+                    description: url.description ?? "",
+                    createTime: url.createTime.toISOString(),
+                    updatedTime: url.updatedTime?.toISOString() ?? null,
+                }))}
+            />
         </>
-    )
+    );
 }

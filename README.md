@@ -39,6 +39,15 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+Copy `.env.example` to `.env.local` and configure MongoDB and Google OAuth. In Google Cloud, add these authorized redirect URIs:
+
+```text
+http://localhost:3000/api/auth/callback/google
+https://your-production-domain.example/api/auth/callback/google
+```
+
+Generate `AUTH_SECRET` with `openssl rand -base64 32`. Guest shortening works without authentication; Google login enables the saved URL dashboard.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

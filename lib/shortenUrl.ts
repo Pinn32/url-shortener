@@ -3,11 +3,11 @@ import getCollection, {URL_SLUG} from "@/lib/db/db";
 
 export type ShortenResult = UrlProps & { originalSlug?: string };
 
-export default async function shortenUrl(longUrl: string, slug: string): Promise<ShortenResult | null> {
+export default async function shortenUrl(longUrl: string, slug: string, userId?: string): Promise<ShortenResult | null> {
     const urlCollection = await getCollection(URL_SLUG);
 
     // Exact match: same URL and slug already exists
-    const exactMatch = await urlCollection.findOne({ longUrl, slug });
+    const exactMatch = await urlCollection.findOne({ longUrl, slug, userId });
     if (exactMatch) {
         return { id: exactMatch._id.toHexString(), longUrl, slug, createTime: exactMatch.createTime };
     }
@@ -41,7 +41,7 @@ export default async function shortenUrl(longUrl: string, slug: string): Promise
     }
 
     const createTime = new Date();
-    const res = await urlCollection.insertOne({ longUrl, slug: finalSlug, createTime });
+    const res = await urlCollection.insertOne({ longUrl, slug: finalSlug, createTime, ...(userId ? { userId } : {}) });
 
     if (!res.acknowledged) {
         return null;
@@ -52,6 +52,7 @@ export default async function shortenUrl(longUrl: string, slug: string): Promise
         longUrl,
         slug: finalSlug,
         createTime,
+        userId,
         ...(finalSlug !== slug ? { originalSlug: slug } : {}),
     };
 }

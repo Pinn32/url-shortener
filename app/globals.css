@@ -1,6 +1,6 @@
 /* global styles */
 :root {
-    font-size: calc(14px + 1vh);
+    font-size: 16px;
     --bg-color: #447856;
     --color: #ecc0b4;
     --light-green: #90bc8f;
@@ -17,7 +17,7 @@ input, textarea, select, button {
 }
 
 body {
-    margin: 5%;
+    margin: 2% 5%;
     min-height: 100vh;
     color: var(--color);
     background-color: var(--bg-color);
@@ -33,10 +33,262 @@ body {
 }
 
 main {
+    margin: 2rem auto 2.5rem;
+    width: min(1100px, 100%);
     display: flex;
     flex-direction: column;
-    gap: 5vh;
+    gap: 2.5rem;
 }
+
+button, input, textarea {
+    font-family: inherit;
+}
+
+button {
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.account-bar {
+    width: min(1100px, 100%);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    min-height: 2rem;
+    font-size: 0.8rem;
+}
+
+.account-bar > span {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--color);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.account-bar form { flex-shrink: 0; }
+
+.login-link, .google-button, .secondary-button, .manager button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2rem;
+    padding: 0.35rem 0.8rem;
+    background: var(--color);
+    color: var(--dark-green);
+    text-decoration: none;
+}
+
+.account-bar .login-link,
+.account-bar .secondary-button {
+    min-height: 1.5rem;
+    height: 1.5rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 4px;
+    background: var(--color);
+    color: var(--dark-green);
+    font-size: 0.75rem;
+    line-height: 1;
+}
+
+.login-prompt {
+    width: 75vw;
+    max-width: 100%;
+    margin: -0.75rem auto 0;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--color);
+    background: rgba(59, 102, 74, 0.55);
+    font-size: 0.85rem;
+}
+
+.login-panel {
+    width: min(520px, 90vw);
+    margin: 10vh auto;
+    padding: 1.5rem;
+    background: var(--dark-green);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.login-panel h1 { font-size: 2rem; }
+.back-link, .guest-note { font-size: 0.75rem; }
+.google-button { width: 100%; font-weight: 700; }
+
+.manager {
+    width: 75vw;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.profile-row, .manager-heading, .item-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.profile-row {
+    padding: 1rem 0;
+    border-top: 1px solid var(--light-green);
+    border-bottom: 1px solid var(--light-green);
+}
+
+.profile-row p, .manager-heading span, .destination, .item-actions time {
+    color: var(--light-green);
+    font-size: 0.75rem;
+}
+
+.profile-identity .displayed-name {
+    margin-top: 0.2rem;
+    color: var(--color);
+    font-size: 0.9rem;
+}
+
+.profile-actions { flex-shrink: 0; }
+
+.username-field label, .edit-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+}
+
+.username-field > div { display: flex; gap: 0.4rem; }
+.username-field input, .edit-grid input {
+    width: 100%;
+    min-height: 2rem;
+    padding: 0.4rem 0.55rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #4f301f;
+    background: #fff8f5;
+}
+
+.username-field input {
+    height: 2.25rem;
+    min-height: 2.25rem;
+    padding: 0 0.75rem;
+    border: none;
+    border-radius: 4px;
+    color: saddlebrown;
+    background: white;
+    font-size: 1rem;
+}
+
+.username-field input:focus { outline-color: var(--dark-green); }
+
+.username-field button {
+    min-height: 2.25rem;
+    height: 2.25rem;
+    padding: 0 1.15rem;
+    border-radius: 4px;
+    background: var(--color);
+    color: var(--dark-green);
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.username-field input::placeholder { color: #9ec1ab; }
+.username-field button:hover,
+.account-bar .login-link:hover,
+.account-bar .secondary-button:hover {
+    background: var(--light-green);
+    color: var(--dark-green);
+    text-decoration: none;
+}
+
+.url-list { display: grid; gap: 0.5rem; }
+.url-item {
+    padding: 0.65rem 0.8rem;
+    background: var(--dark-green);
+    border-radius: 8px;
+    min-width: 0;
+}
+.url-item.is-editing { padding: 1rem; }
+.url-summary {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+}
+.url-summary a {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.destination {
+    margin: 0.35rem 0 0.8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.edit-grid { display: grid; grid-template-columns: minmax(160px, 0.7fr) minmax(240px, 1.3fr); gap: 0.75rem; }
+.edit-grid label > span { align-self: flex-end; margin-top: -1.2rem; }
+.edit-grid input {
+    height: 2.25rem;
+    min-height: 2.25rem;
+    padding: 0 0.75rem;
+    border: none;
+    border-radius: 4px;
+    background: white;
+    color: saddlebrown;
+    font-size: 1rem;
+}
+.edit-grid input::placeholder { color: #9ec1ab; }
+.edit-grid input:focus { outline-color: var(--dark-green); }
+.limit-error { color: #ffd2d2; }
+.edit-metadata {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.65rem;
+    color: var(--light-green);
+    font-size: 0.7rem;
+}
+.item-actions { justify-content: flex-end; margin-top: 0.75rem; }
+.url-summary button,
+.item-actions button {
+    height: 2.25rem;
+    min-height: 2.25rem;
+    padding: 0 1.15rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+.item-actions button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+.danger-button { background: #a33b3b !important; color: white !important; }
+.status-message { font-size: 0.8rem; }
+.empty-state { padding: 1.5rem 0; color: var(--light-green); }
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background: rgba(20, 35, 25, 0.75);
+}
+.confirm-dialog {
+    width: min(440px, 100%);
+    padding: 1.25rem;
+    border-radius: 8px;
+    background: #fff8f5;
+    color: #294b35;
+}
+.confirm-dialog p { margin: 0.75rem 0 1.25rem; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
 
 a {
     transition: all 0.1s ease-in-out;
@@ -48,4 +300,38 @@ a {
         color: var(--color);
         text-decoration: underline;
     }
+}
+
+@media (max-width: 800px) {
+    main {
+        margin: 1.5rem auto 2rem;
+        gap: 2rem;
+    }
+    .login-prompt, .manager { width: 90vw; }
+    .profile-row { align-items: stretch; flex-direction: column; }
+    .username-field { min-width: 0; }
+    .username-field > div { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; }
+    .username-field input, .username-field button {
+        height: 2.25rem;
+        min-height: 2.25rem;
+        font-size: 1rem;
+    }
+    .edit-grid { grid-template-columns: 1fr; }
+    .item-actions { flex-wrap: wrap; }
+    .edit-grid input,
+    .url-summary button,
+    .item-actions button {
+        height: 2.25rem;
+        min-height: 2.25rem;
+    }
+    .edit-metadata { flex-wrap: wrap; gap: 0.35rem 1rem; }
+}
+
+@media (max-width: 480px) {
+    .account-bar { gap: 0.5rem; }
+    .account-bar > span { max-width: calc(100% - 5rem); }
+    .manager-heading { align-items: flex-start; }
+    .manager-heading h2 { font-size: 1.1rem; }
+    .username-field input { grid-column: 1 / -1; }
+    .item-actions button { flex: 1; }
 }

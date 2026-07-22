@@ -1,4 +1,4 @@
-import {Collection, Db, MongoClient} from "mongodb";
+import { Collection, Db, MongoClient } from "mongodb";
 
 const MONGO_URI = process.env.MONGO_URI as string;
 
@@ -7,22 +7,23 @@ if(!MONGO_URI){
     throw new Error("Something is wrong with your key");
 }
 
-const DB_NAME = "cs601-mp-5";
+export const DB_NAME = "cs601-mp-5";
 
 export const URL_SLUG = "url-slug";
 
-let client: MongoClient | null=null;
+let client: MongoClient | null = null;
 let db: Db | null=null;
 
-async function connect(): Promise<Db> {
-    // If `client` is not yet initialized, create a new MongoClient instance
-    // and connect to MongoDB using the provided URI.
+export const clientPromise = (async () => {
     if (!client) {
         client = new MongoClient(MONGO_URI);
         await client.connect();
     }
-    // Return the database instance for the specified database name.
-    return client.db(DB_NAME);
+    return client;
+})();
+
+async function connect(): Promise<Db> {
+    return (await clientPromise).db(DB_NAME);
 }
 
 

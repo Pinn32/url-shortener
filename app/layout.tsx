@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Quantico } from "next/font/google";
 import type React from "react";
+import Link from "next/link";
 import "./globals.css";
 import Footer from "@/components/Footer";
+import { auth, signOut } from "@/auth";
 
 // Google fonts
 const quantico = Quantico({
@@ -18,15 +20,30 @@ export const metadata: Metadata = {
 };
 
 // RootLayout
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const session = await auth();
+
     return (
         <>
             <html lang="en" className={`${quantico.variable}`}>
                 <body>
+                    <header className="account-bar">
+                        {session?.user ? (
+                            <>
+                                <span>{session.user.name ?? session.user.email}</span>
+                                <form action={async () => {
+                                    "use server";
+                                    await signOut({ redirectTo: "/" });
+                                }}>
+                                    <button className="secondary-button" type="submit">Log out</button>
+                                </form>
+                            </>
+                        ) : <Link className="login-link" href="/login">Log in</Link>}
+                    </header>
                     <main>
                         {children}
                     </main>

@@ -4,8 +4,8 @@ export const StyledSection = styled.section`
     background-color: var(--dark-green);
     color: var(--color);
     margin: 0 auto;
-    width: 75vw;
-    padding: 1rem 1.5rem 2rem;
+    width: min(900px, 100%);
+    padding: 1.5rem 2rem 1.75rem;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -13,11 +13,16 @@ export const StyledSection = styled.section`
     font-size: 1rem;
     
     & label {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+        line-height: 1.4;
     }
     
     @media screen and (max-width: 800px) {
-        width: 90vw;
+        width: 100%;
+        padding: 1rem;
+        gap: 1rem;
+
+        & label { font-size: 0.95rem; }
     }
 `;
 
@@ -33,10 +38,10 @@ export const StyledInput = styled.input`
     border-radius: 4px;
     border: none;
     width: 100%;
-    height: 1.5rem;
-    padding: 0 0.5rem;
+    height: 2.25rem;
+    padding: 0 0.75rem;
     color: saddlebrown;
-    font-size: 0.8rem;
+    font-size: 1rem;
     
     &:focus {
         outline-color: var(--dark-green);
@@ -47,8 +52,8 @@ export const StyledInput = styled.input`
     }
 
     @media screen and (max-width: 800px) {
-        height: 1.8rem;
-        font-size: 0.9rem;
+        height: 2.25rem;
+        font-size: 1rem;
     }
 `;
 
@@ -61,6 +66,7 @@ export const StyledSlugDiv = styled.div`
     
     & p {
         color: var(--light-green);
+        font-size: 0.95rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -76,12 +82,12 @@ export const StyledSlugDiv = styled.div`
 
 export const StyledFlexInput = styled(StyledInput)`
     flex: 1;
-    height: 1.5rem;
+    height: 2.25rem;
     width: auto;
     min-width: 0;
     border-radius: 4px;
     border: none;
-    font-size: 0.8rem;
+    font-size: 1rem;
     
     &:focus {
         outline-color: var(--dark-green);
@@ -89,16 +95,16 @@ export const StyledFlexInput = styled(StyledInput)`
     
     @media screen and (max-width: 800px) {
         flex: initial;
-        height: 1.8rem;
-        font-size: 0.9rem;
+        height: 2.25rem;
+        font-size: 1rem;
     }
 `;
 
 export const StyledButton = styled.button`
     box-sizing: border-box;
-    height: 1.5rem;
-    padding: 0 0.75rem;
-    font-size: 0.8rem;
+    height: 2.25rem;
+    padding: 0 1.15rem;
+    font-size: 1rem;
     white-space: nowrap;
     background-color: var(--color);
     color: var(--dark-green);
@@ -112,7 +118,7 @@ export const StyledButton = styled.button`
         background-color: seagreen;
     }
     @media screen and (max-width: 800px) {
-        height: 1.8rem;
+        height: 2.25rem;
         font-size: 1rem;
     }
 `;

@@ -5,11 +5,12 @@ const StyledDiv = styled.div`
     background-color: var(--dark-green);
     margin: 0 auto;
     border-radius: 8px;
-    width: 75vw;
-    padding: 1rem 1.5rem 1.5rem 1.5rem;
+    width: min(900px, 100%);
+    padding: 1.25rem 1.5rem 1.5rem;
 
     @media screen and (max-width: 800px) {
-        width: 90vw;
+        width: 100%;
+        padding: 1rem;
     }
 `;
 
@@ -38,7 +39,9 @@ const CopyButton = styled.button`
 `;
 
 const OutputUrl = styled.p`
+    min-width: 0;
     color: var(--light-green);
+    overflow-wrap: anywhere;
 `;
 
 type Result =
