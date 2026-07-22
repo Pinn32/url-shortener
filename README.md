@@ -1,68 +1,91 @@
-## URL Shortener
+# URL Shortener
 
-This web tool helps you compact long URLs into shareable short links with a customized slug.
+A Next.js URL shortener for creating shareable links with custom slugs. Guests can shorten URLs immediately, while users who log in with Google can store and manage links associated with their account.
 
-**[Click here to try](https://url-to.vercel.app/)**
+**[Open the deployed app](https://url-to.vercel.app/)**
 
-To use it, enter your long URL:
+## Features
 
-```
+- Shorten a long URL with a custom slug.
+- Continue as a guest without creating an account.
+- Log in securely with Google OAuth through Auth.js.
+- Save newly shortened URLs to the logged-in user's account.
+- Set a displayed username, initially derived from the user's Gmail address.
+- View all URLs created while logged in.
+- Edit a saved URL's slug.
+- Add an optional description of up to 10 words.
+- View creation and last-edited dates while editing a URL.
+- Delete a saved URL after confirming the action.
+
+Guest-created URLs continue to redirect normally, but they are not attached to an account and cannot be managed from the saved URL list.
+
+## Usage
+
+Enter the destination URL:
+
+```text
 https://example.com/your/very/long/url/
 ```
 
-Then, choose a slug for your shortened URL:
+Choose a slug:
 
+```text
+https://url-to.vercel.app/your-slug
 ```
-https://url-to.vercel.app/<your-slug>
-```
 
-Click the compact button, and the tool will give you a shortened link that redirects to your URL.
+Select **Click to Compact** to create the shortened URL. When logged in, the new URL is added to **Your shortened URLs**, where its slug and description can be edited or the URL can be deleted.
 
+Use **Edit username** under **Your account** to change the name displayed in the app header.
 
----
+## Local Development
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
+Install dependencies and start the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-Copy `.env.example` to `.env.local` and configure MongoDB and Google OAuth. In Google Cloud, add these authorized redirect URIs:
+## Environment Variables
+
+Copy `.env.example` to `.env.local` and provide the following values:
+
+```dotenv
+MONGO_URI=mongodb+srv://username:password@cluster.example.mongodb.net/
+AUTH_SECRET=generate-a-long-random-secret
+AUTH_GOOGLE_ID=your-google-oauth-client-id
+AUTH_GOOGLE_SECRET=your-google-oauth-client-secret
+```
+
+Generate an Auth.js secret with:
+
+```bash
+openssl rand -base64 32
+```
+
+In Google Cloud, configure these authorized redirect URIs for the OAuth client:
 
 ```text
 http://localhost:3000/api/auth/callback/google
 https://your-production-domain.example/api/auth/callback/google
 ```
 
-Generate `AUTH_SECRET` with `openssl rand -base64 32`. Guest shortening works without authentication; Google login enables the saved URL dashboard.
+## Technology
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Next.js 16 with the App Router
+- React 19
+- Auth.js with the Google provider
+- Auth.js MongoDB adapter
+- MongoDB
+- styled-components
+- Quantico through `next/font`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Verification
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm lint
+pnpm exec tsc --noEmit
+pnpm build
+```
