@@ -1,0 +1,75 @@
+.notFound {
+    width: min(900px, 100%);
+    margin: auto;
+    padding: clamp(2rem, 6vw, 4.5rem) clamp(1.25rem, 6vw, 4rem);
+    border-radius: 8px;
+    background-color: var(--dark-green);
+    color: var(--color);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.code {
+    color: var(--light-green);
+    font-size: clamp(4.5rem, 15vw, 8rem);
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: -0.06em;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.message h1 {
+    font-size: clamp(1.65rem, 5vw, 2.5rem);
+    line-height: 1.15;
+}
+
+.message p {
+    max-width: 36rem;
+    color: var(--light-green);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.homeLink,
+.homeLink:link,
+.homeLink:visited {
+    min-height: 2.25rem;
+    padding: 0.55rem 1.15rem;
+    border-radius: 4px;
+    background-color: var(--color);
+    color: var(--dark-green);
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.homeLink:hover {
+    background-color: var(--light-green);
+    color: var(--dark-green);
+    text-decoration: none;
+}
+
+.homeLink:active {
+    transform: scale(0.97);
+}
+
+.homeLink:focus-visible {
+    outline: 2px solid var(--light-green);
+    outline-offset: 3px;
+}
+
+@media (max-width: 800px) {
+    .notFound {
+        width: 100%;
+    }
+}

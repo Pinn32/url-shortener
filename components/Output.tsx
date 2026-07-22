@@ -23,8 +23,10 @@ const UrlRow = styled.div`
 
 const CopyButton = styled.button`
     flex-shrink: 0;
-    padding: 0.2rem 0.6rem;
-    font-size: 0.8rem;
+    height: 2.25rem;
+    min-height: 2.25rem;
+    padding: 0 1.15rem;
+    font-size: 1rem;
     background-color: var(--color);
     color: var(--dark-green);
     border: none;
@@ -38,10 +40,15 @@ const CopyButton = styled.button`
     }
 `;
 
-const OutputUrl = styled.p`
+const OutputText = styled.p`
+    flex: 1;
     min-width: 0;
     color: var(--light-green);
     overflow-wrap: anywhere;
+`;
+
+const OutputLabel = styled.span`
+    color: var(--color);
 `;
 
 type Result =
@@ -65,9 +72,10 @@ export default function Output({ result }: { result: Result }) {
                     ?
                 (<>
                     {result.warning && <p style={{ color: "var(--light-green)", fontStyle: "italic", marginBottom: "0.5rem" }}>{result.warning}</p>}
-                    <p>Your compacted URL:</p>
                     <UrlRow>
-                        <OutputUrl>{result.url}</OutputUrl>
+                        <OutputText>
+                            <OutputLabel>Your compacted URL:</OutputLabel> {result.url}
+                        </OutputText>
                         <CopyButton onClick={handleCopy}>{copied ? "Copied!" : "Copy"}</CopyButton>
                     </UrlRow>
                 </>)

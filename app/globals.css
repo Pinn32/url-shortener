@@ -5,6 +5,39 @@
     --color: #ecc0b4;
     --light-green: #90bc8f;
     --dark-green: #3b664a;
+    --motion-fast: 120ms;
+    --motion-standard: 220ms;
+    --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes surface-in {
+    from { opacity: 0; transform: translateY(0.4rem) scale(0.995); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes content-in {
+    from { opacity: 0; transform: translateY(0.2rem); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes backdrop-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes backdrop-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes dialog-in {
+    from { opacity: 0; transform: translateY(0.4rem) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes dialog-out {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(0.4rem) scale(0.98); }
 }
 
 * {
@@ -40,6 +73,12 @@ main {
     gap: 2.5rem;
 }
 
+.account-bar,
+main > *,
+body > footer {
+    animation: surface-in 280ms var(--motion-ease) backwards;
+}
+
 button, input, textarea {
     font-family: inherit;
 }
@@ -48,6 +87,31 @@ button {
     border: 0;
     border-radius: 4px;
     cursor: pointer;
+    transition:
+        transform var(--motion-fast) ease-out,
+        background-color 160ms ease-out,
+        color 160ms ease-out,
+        opacity 160ms ease-out;
+}
+
+button:hover:not(:disabled) {
+    background-color: var(--light-green);
+}
+
+button:active:not(:disabled),
+.login-link:active,
+.google-button:active {
+    transform: scale(0.97);
+    transition-duration: 80ms;
+}
+
+input,
+textarea,
+select {
+    transition:
+        border-color 160ms ease-out,
+        background-color 160ms ease-out,
+        box-shadow 160ms ease-out;
 }
 
 .account-bar {
@@ -146,12 +210,39 @@ button {
 }
 
 .profile-identity .displayed-name {
-    margin-top: 0.2rem;
     color: var(--color);
     font-size: 0.9rem;
 }
 
+.profile-identity { min-width: 0; }
+.profile-details {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    min-width: 0;
+    margin-top: 0.2rem;
+}
+.profile-details p {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.profile-details .displayed-name {
+    flex-shrink: 0;
+    max-width: 45%;
+}
+.profile-details p:last-child { flex: 1; }
+.profile-status { margin-top: 0.35rem; }
+
 .profile-actions { flex-shrink: 0; }
+
+.profile-actions,
+.username-field,
+.status-message,
+.empty-state {
+    animation: content-in var(--motion-standard) var(--motion-ease) both;
+}
 
 .manager-heading > div:first-child {
     min-width: 0;
@@ -181,6 +272,7 @@ button {
     gap: 0.3rem;
     font-size: 0.75rem;
 }
+.username-field > label { margin-bottom: 0.2rem; }
 
 .username-field > div { display: flex; gap: 0.4rem; }
 .username-field input, .edit-grid input {
@@ -232,6 +324,8 @@ button {
     background: var(--dark-green);
     border-radius: 8px;
     min-width: 0;
+    animation: content-in var(--motion-standard) var(--motion-ease) both;
+    transition: padding var(--motion-standard) var(--motion-ease);
 }
 .url-item.is-editing { padding: 1rem; }
 .url-summary {
@@ -253,8 +347,34 @@ button {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.url-edit-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        grid-template-rows var(--motion-standard) var(--motion-ease),
+        opacity 160ms ease-out,
+        visibility 0s linear var(--motion-standard);
+}
+.url-edit-panel.is-open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+}
+.url-edit-panel-inner {
+    min-height: 0;
+    overflow: hidden;
+}
 .edit-grid { display: grid; grid-template-columns: minmax(160px, 0.7fr) minmax(240px, 1.3fr); gap: 0.75rem; }
-.edit-grid label > span { align-self: flex-end; margin-top: -1.2rem; }
+.edit-label-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    min-height: 1rem;
+}
 .edit-grid input {
     height: 2.25rem;
     min-height: 2.25rem;
@@ -276,7 +396,29 @@ button {
     font-size: 0.7rem;
 }
 .item-actions { justify-content: flex-end; margin-top: 0.75rem; }
-.url-summary button,
+.url-summary button {
+    height: 2rem;
+    min-height: 2rem;
+    padding: 0 0.8rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+.profile-actions button,
+.export-actions button,
+.url-summary .row-edit-button {
+    background: rgba(144, 188, 143, 0.78);
+    color: var(--dark-green);
+}
+.profile-actions button:hover:not(:disabled),
+.export-actions button:hover:not(:disabled),
+.url-summary .row-edit-button:hover:not(:disabled) {
+    background: var(--light-green);
+}
+.url-summary .row-copy-button {
+    background: var(--color);
+    color: var(--dark-green);
+}
 .item-actions button {
     height: 2.25rem;
     min-height: 2.25rem;
@@ -290,6 +432,7 @@ button {
     opacity: 0.55;
 }
 .danger-button { background: #a33b3b !important; color: white !important; }
+.danger-button:hover:not(:disabled) { background: #c44b4b !important; }
 .status-message { font-size: 0.8rem; }
 .empty-state { padding: 1.5rem 0; color: var(--light-green); }
 
@@ -301,6 +444,11 @@ button {
     place-items: center;
     padding: 1rem;
     background: rgba(20, 35, 25, 0.75);
+    animation: backdrop-in 180ms ease-out both;
+}
+.modal-backdrop.is-closing {
+    pointer-events: none;
+    animation: backdrop-out 180ms ease-in both;
 }
 .confirm-dialog {
     width: min(440px, 100%);
@@ -308,12 +456,19 @@ button {
     border-radius: 8px;
     background: #fff8f5;
     color: #294b35;
+    animation: dialog-in var(--motion-standard) var(--motion-ease) both;
+}
+.modal-backdrop.is-closing .confirm-dialog {
+    animation: dialog-out 180ms ease-in both;
 }
 .confirm-dialog p { margin: 0.75rem 0 1.25rem; }
 .dialog-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
 
 a {
-    transition: all 0.1s ease-in-out;
+    transition:
+        color 140ms ease-out,
+        background-color 140ms ease-out,
+        transform var(--motion-fast) ease-out;
     
     &:link, &:visited {
         color: var(--light-green);
@@ -324,13 +479,31 @@ a {
     }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-delay: 0s !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
 @media (max-width: 800px) {
     main {
         margin: 1.5rem auto 2rem;
         gap: 2rem;
     }
     .login-prompt, .manager { width: 90vw; }
-    .profile-row { align-items: stretch; flex-direction: column; }
+    .profile-row { align-items: center; flex-direction: row; }
+    .profile-row.is-editing-profile { align-items: stretch; flex-direction: column; }
+    .profile-details p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
     .manager-heading { align-items: flex-end; }
     .username-field { min-width: 0; }
     .username-field > div { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; }
@@ -342,7 +515,6 @@ a {
     .edit-grid { grid-template-columns: 1fr; }
     .item-actions { flex-wrap: wrap; }
     .edit-grid input,
-    .url-summary button,
     .item-actions button {
         height: 2.25rem;
         min-height: 2.25rem;
